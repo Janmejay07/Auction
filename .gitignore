@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Environment files and secrets
+.env
+.env.*
+!.env*.example
+
+# Build and test output
+backend/dist/
+backend/coverage/
+frontend/.next/
+frontend/out/
+coverage/
+
+# Logs and local tooling
+*.log
+.vscode/
+.DS_Store
+Thumbs.db
