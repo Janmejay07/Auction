@@ -35,6 +35,13 @@ app.use('/api', restRateLimit);
 app.use(requestLogger);
 
 // --------------- Routes ---------------
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    name: 'Football Auction API',
+    status: 'ok',
+    health: '/health',
+  });
+});
 app.use(healthRouter);
 app.use('/api', authRouter);
 app.use('/api', roomRouter);
