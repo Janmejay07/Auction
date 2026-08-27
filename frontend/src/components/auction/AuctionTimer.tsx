@@ -8,6 +8,7 @@ interface AuctionTimerProps {
   totalDurationSeconds?: number;
   isLive: boolean;
   hasBids: boolean;
+  onExpired?: () => void;
 }
 
 export function AuctionTimer({
@@ -15,9 +16,11 @@ export function AuctionTimer({
   totalDurationSeconds = 15,
   isLive,
   hasBids,
+  onExpired,
 }: AuctionTimerProps) {
   const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
   const [progress, setProgress] = useState<number>(100);
+  const [expirationNotifiedFor, setExpirationNotifiedFor] = useState<string | null>(null);
 
   useEffect(() => {
     if (!timerEndsAt || !isLive) {
@@ -33,6 +36,11 @@ export function AuctionTimer({
       const sec = Math.max(0, Math.ceil(diffMs / 1000));
       setSecondsLeft(sec);
 
+      if (diffMs <= 0 && expirationNotifiedFor !== timerEndsAt) {
+        setExpirationNotifiedFor(timerEndsAt);
+        onExpired?.();
+      }
+
       const percent = Math.min(100, Math.max(0, (diffMs / (totalDurationSeconds * 1000)) * 100));
       setProgress(percent);
     };
@@ -41,7 +49,7 @@ export function AuctionTimer({
     const interval = setInterval(calculateTime, 100);
 
     return () => clearInterval(interval);
-  }, [timerEndsAt, totalDurationSeconds, isLive]);
+  }, [timerEndsAt, totalDurationSeconds, isLive, onExpired, expirationNotifiedFor]);
 
   if (!isLive) {
     return (

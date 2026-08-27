@@ -492,6 +492,9 @@ export default function RoomPage() {
             totalDurationSeconds={room.settings?.bidTimerSeconds || 15}
             isLive={Boolean(currentAuction && currentAuction.status === 'LIVE')}
             hasBids={Boolean(currentHighestBid !== null || recentBids.length > 0)}
+            onExpired={() => {
+              void performSocketSync();
+            }}
           />
 
           <BiddingConsole

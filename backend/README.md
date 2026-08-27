@@ -415,7 +415,7 @@ Build:      passed
 5. Use start command `npm start`.
 6. Configure the environment variables listed above. Render supplies `PORT`; keep the application listening on it.
 7. Set the health check path to `/health`.
-8. Deploy one instance only. Configure the frontend origin in `CORS_ORIGIN` and use the Render HTTPS URL for Socket.IO so clients connect over WSS.
+8. Deploy one instance only. Set `CORS_ORIGIN` to the complete frontend origin, including the scheme, for example `https://footballauction-phi.vercel.app` (not `footballauction-phi.vercel.app`). Use the Render HTTPS URL for Socket.IO so clients connect over WSS.
 9. Verify health, JWT auth, CORS, REST routes, Socket.IO join/sync, timer reset, concurrent bidding, transactions, reconnect, restart recovery, room isolation, and structured logs.
 
 ### 14. Known Limitations

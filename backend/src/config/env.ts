@@ -8,7 +8,11 @@ export const envSchema = z.object({
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
   JWT_SECRET: z.string().min(1, 'JWT_SECRET is required'),
   JWT_EXPIRES_IN: z.string().default('7d'),
-  CORS_ORIGIN: z.string().default('http://localhost:5173'),
+  CORS_ORIGIN: z
+    .string()
+    .url('CORS_ORIGIN must be a complete URL, including http:// or https://')
+    .transform((origin) => origin.replace(/\/+$/, ''))
+    .default('http://localhost:5173'),
 });
 
 export type Env = z.infer<typeof envSchema>;
