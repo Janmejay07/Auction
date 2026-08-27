@@ -7,7 +7,7 @@ import { RoomRepository } from '../rooms/room.repository';
 import { RoomPlayerRepository } from '../roomPlayers/roomPlayer.repository';
 import { RoomService } from '../rooms/room.service';
 import { ConflictError, NotFoundError } from '../common/errors';
-import type { IAuctionRoom, IAuction, IBid, IParticipant, IPlayer, AuctionPoolState } from '../common/types/domain';
+import type { IAuctionRoom, IAuction, IBid, IParticipant, IPlayer } from '../common/types/domain';
 
 export interface RoomSync {
   room: IAuctionRoom;

@@ -478,6 +478,7 @@ export class AuctionEngine {
       }
 
       if (!completed) return;
+      const settledWinner = winner as IParticipant | null;
       this.emit(room.roomCode, hasWinner ? 'player:sold' : 'player:unsold', hasWinner
         ? {
             result: 'SOLD',
@@ -488,8 +489,8 @@ export class AuctionEngine {
             winningAmount,
             winningBid: winningAmount,
             winnerParticipantId: current.currentHighestParticipantId,
-            winnerParticipantName: winner?.teamName ?? 'Winning Team',
-            remainingPurse: winner?.purseRemaining,
+            winnerParticipantName: settledWinner?.teamName ?? 'Winning Team',
+            remainingPurse: settledWinner?.purseRemaining,
             auction: completed,
             displayDurationSeconds: Math.max(1, Math.round(this.resultDisplayDurationMs / 1000)),
             eventSequence,
@@ -590,4 +591,4 @@ export class AuctionEngine {
 }
 
 export const sharedAuctionEngine = new AuctionEngine();
-
+

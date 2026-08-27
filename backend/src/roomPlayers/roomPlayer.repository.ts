@@ -7,7 +7,6 @@ import type {
 import { Types, type ClientSession } from 'mongoose';
 
 import {
-  getClubGroup,
   getPositionRank,
   POSITION_ORDER,
   ROUND_CONFIGS,
@@ -76,18 +75,18 @@ export class RoomPlayerRepository {
     // 4. Filter pending players matching the active (round, position)
     const matching = roundPending.filter((rp) => getPositionRank(rp.position) === minRank);
 
-    if (matching.length === 0) return roundPending[0];
-    if (matching.length === 1) return matching[0];
+    if (matching.length === 0) return roundPending[0] ?? null;
+    if (matching.length === 1) return matching[0] ?? null;
 
     const hasExplicitPosition = matching.some((rp) => Boolean(rp.position));
     if (!hasExplicitPosition) {
       matching.sort((a, b) => a.auctionOrder - b.auctionOrder);
-      return matching[0];
+      return matching[0] ?? null;
     }
 
     // 5. Randomly select from the active pool only
     const randomIndex = Math.floor(Math.random() * matching.length);
-    return matching[randomIndex];
+    return matching[randomIndex] ?? null;
   }
 
   /**

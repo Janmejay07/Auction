@@ -1,9 +1,7 @@
-import { Types } from 'mongoose';
 import { SquadPlayerRepository } from './squadPlayer.repository';
 import { SquadPlayerModel } from './squadPlayer.model';
 import { ParticipantRepository } from '../participants/participant.repository';
 import { RoomRepository } from '../rooms/room.repository';
-import { PlayerRepository } from '../players/player.repository';
 import {
   ValidationError,
   ForbiddenError,
@@ -26,7 +24,6 @@ export class SquadService {
     private readonly squadRepo = new SquadPlayerRepository(),
     private readonly participantRepo = new ParticipantRepository(),
     private readonly roomRepo = new RoomRepository(),
-    private readonly playerRepo = new PlayerRepository(),
   ) {}
 
   /**
@@ -48,7 +45,7 @@ export class SquadService {
       history.push({
         roomId: room._id.toString(),
         roomCode: room.roomCode,
-        roomName: room.name,
+        roomName: room.roomCode,
         roomStatus: room.status,
         teamName: p.teamName,
         participantId: p._id.toString(),
@@ -57,7 +54,7 @@ export class SquadService {
         maxSquadSize: room.settings?.squadLimit || 11,
         totalSpent: p.totalSpent || (room.settings?.purseTotal ? room.settings.purseTotal - p.purseRemaining : 0),
         purseRemaining: p.purseRemaining,
-        createdAt: p.createdAt,
+        createdAt: p.joinedAt,
       });
     }
 

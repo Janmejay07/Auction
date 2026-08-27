@@ -235,7 +235,7 @@ export class RoomService {
           round,
           clubGroup,
           position: player.position,
-          basePrice: player.basePrice || 1_000_000,
+          basePrice: 1_000_000,
           auctionOrder: index + 1,
           status: 'PENDING' as const,
         };

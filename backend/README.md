@@ -411,7 +411,7 @@ Build:      passed
 1. Create a MongoDB Atlas cluster and allow the Render service outbound access. Create a least-privilege database user and copy the SRV connection string.
 2. Create a Render **Web Service** from the repository.
 3. Set the service root directory to `backend`.
-4. Use Node.js with build command `npm ci && npm run build`.
+4. Use Node.js with build command `npm ci --include=dev && npm run build`.
 5. Use start command `npm start`.
 6. Configure the environment variables listed above. Render supplies `PORT`; keep the application listening on it.
 7. Set the health check path to `/health`.
